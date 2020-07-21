@@ -3,6 +3,10 @@ provider "azurerm" {
   # whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
   version = "=2.0.0"
   features {}
+
+  # you can use az login if you don't want to input your id
+  #subscription_id = "xxxxxxxxxxxxxxxxx"
+  #tenant_id       = "xxxxxxxxxxxxxxxxx"
 }
 
 # Create a resource group
