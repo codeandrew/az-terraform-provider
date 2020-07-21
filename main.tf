@@ -27,7 +27,7 @@ resource "azurerm_virtual_network" "az-jaf-demo-vnet" {
 resource "azurerm_subnet" "az-jaf-demo-subnet-0" {
   name                 = "myTFSubnet"
   resource_group_name  = azurerm_resource_group.az-jaf-demo-rg.name
-  virtual_network_name = azurerm_virtual_network.vnet.name
+  virtual_network_name = azurerm_virtual_network.az-jaf-demo-vnet.name
   address_prefix       = "10.0.0.0/24"
 }
 
@@ -54,8 +54,22 @@ resource "azure_security_group_rule" "ssh_access" {
   priority                   = 200
   source_address_prefix      = "0.0.0.0" # your IP address 
   source_port_range          = "*"
-  destination_address_prefix = "10.0.0.0/32"
+  destination_address_prefix = "*"
   destination_port_range     = "22"
   protocol                   = "TCP"
 }
 
+# Create network interface
+resource "azurerm_network_interface" "az-jaf-demo-nic" {
+  name                      = "myaz-jaf-demo-nic"
+  location                  = azurerm_resource_group.az-jaf-demo-rg.location
+  resource_group_name       = azurerm_resource_group.az-jaf-demo-rg.name
+  network_security_group_id = azurerm_network_security_group.az-jaf-demo-nsg.id
+
+  ip_configuration {
+    name                          = "az-jaf-demo-nic"
+    subnet_id                     = azurerm_subnet.az-jaf-demo-subnet.id
+    private_ip_address_allocation = "dynamic"
+    public_ip_address_id          = azurerm_public_ip.az-jaf-demo-ip.id
+  }
+}
