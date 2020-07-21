@@ -73,3 +73,37 @@ resource "azurerm_network_interface" "az-jaf-demo-nic" {
     public_ip_address_id          = azurerm_public_ip.az-jaf-demo-ip.id
   }
 }
+
+# Create a Linux virtual machine
+resource "azurerm_virtual_machine" "az-jaf-demo-vm" {
+  name                  = "az-jaf-demo-vm"
+  location              = azurerm_resource_group.az-jaf-demo-rg.location
+  resource_group_name   = azurerm_resource_group.az-jaf-demo-rg.name
+  network_interface_ids = [azurerm_network_interface.az-jaf-demo-nic.id]
+  vm_size               = "Standard_DS1_v2"
+
+  storage_os_disk {
+    name              = "az-jaf-demo-disk"
+    caching           = "ReadWrite"
+    create_option     = "FromImage"
+    managed_disk_type = "Premium_LRS"
+  }
+
+  storage_image_reference {
+    publisher = "Canonical"
+    offer     = "UbuntuServer"
+    sku       = "16.04.0-LTS"
+    version   = "latest"
+  }
+
+  os_profile {
+    computer_name  = "azure"
+    admin_username = "jaf"
+    admin_password = "Password1234!"
+  }
+
+  os_profile_linux_config {
+    disable_password_authentication = false
+  }
+}
+
