@@ -80,7 +80,7 @@ resource "azurerm_virtual_machine" "az-jaf-demo-vm" {
   location              = azurerm_resource_group.az-jaf-demo-rg.location
   resource_group_name   = azurerm_resource_group.az-jaf-demo-rg.name
   network_interface_ids = [azurerm_network_interface.az-jaf-demo-nic.id]
-  vm_size               = "Standard_DS1_v2"
+  vm_size               = "Standard_A4_v2"
 
   storage_os_disk {
     name              = "az-jaf-demo-disk"
