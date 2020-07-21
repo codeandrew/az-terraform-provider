@@ -14,6 +14,15 @@ Create or modify infrastructure using `terraform apply`
  - Network Security Group
  - Virtual machines
 
+
+## Destroying Resources
+
+Resources can be destroyed using the `terraform destroy` command. You'll use terraform destroy in this tutorial to remove infrastructure between lessons, and when you're finished with the guide
+
+```
+terraform plan -destroy
+```
+
 ### References
 
 Terraform Azure Provider
