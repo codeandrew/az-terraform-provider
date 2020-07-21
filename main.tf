@@ -18,9 +18,25 @@ resource "azurerm_resource_group" "az-jaf-demo-rg" {
 # Create a virtual network within the resource group
 resource "azurerm_virtual_network" "az-jaf-demo-vnet" {
   name                = "az-jaf-demo-vnet"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.location
+  resource_group_name = azurerm_resource_group.az-jaf-demo-rg.name
+  location            = azurerm_resource_group.az-jaf-demo-rg.location
   address_space       = ["10.0.0.0/23"] # 2 subnets 
+}
+
+# Create subnet
+resource "azurerm_subnet" "az-jaf-demo-subnet-0" {
+  name                 = "myTFSubnet"
+  resource_group_name  = azurerm_resource_group.az-jaf-demo-rg.name
+  virtual_network_name = azurerm_virtual_network.vnet.name
+  address_prefix       = "10.0.0.0/24"
+}
+
+# Create public IP
+resource "azurerm_public_ip" "az-jaf-demo-rg-ip" {
+  name                = "az-jaf-demo-ip"
+  location            = azurerm_resource_group.az-jaf-demo-rg.location
+  resource_group_name = azurerm_resource_group.az-jaf-demo-rg.name
+  allocation_method   = "Static"
 }
 
 # Create a network security group 
