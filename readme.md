@@ -3,8 +3,11 @@
  - Create 
   - Resource group
   - Network Security Group
-  - Vm
-
+  - Virtual machines
 
 ### References
+
+Terraform Azure Provider
+- https://www.terraform.io/docs/providers/azurerm/index.html
+
 - https://www.youtube.com/watch?v=OAWBHyNKrzw
