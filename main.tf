@@ -40,13 +40,13 @@ resource "azurerm_public_ip" "az-jaf-demo-rg-ip" {
 }
 
 # Create a network security group 
-resource "azure_security_group" "az-jaf-demo-nsg" {
+resource "azurerm_security_group" "az-jaf-demo-nsg" {
   name     = "az-jaf-demo-nsg"
   location = "Southeast Asia"
 }
 
 # Create a network security group rule
-resource "azure_security_group_rule" "ssh_access" {
+resource "azurerm_security_group_rule" "ssh_access" {
   name                       = "ssh-access-rule"
   security_group_names       = ["${azure_security_group.az-jaf-demo-nsg.name}"]
   type                       = "Inbound"
